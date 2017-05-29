@@ -1,2 +1,3 @@
 # kuanslove.github.io
-My CV page
+
+My old angular CV page.
