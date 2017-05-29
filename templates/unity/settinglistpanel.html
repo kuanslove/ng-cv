@@ -1,0 +1,12 @@
+<div class="listarea" scrollbody>
+	<div class="setting_row" ng-repeat="setting in settings track by $index">
+		<div class="setting_name">
+			<input ng-init="edit=false" ng-show="edit" placeholder="group name">
+			<span class="setting_name_lbl" ng-init="edit=false" ng-show="!edit">Setting Name {{$index}}</span>
+		</div>
+		<div class="setting_edit">
+			<span class="glyphicon glyphicon-pencil editicon"></span>
+			<span class="glyphicon glyphicon-trash editicon"></span>
+		</div>
+	</div>
+</div>

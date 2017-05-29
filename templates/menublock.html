@@ -1,0 +1,8 @@
+<span class="menu_block_header" ng-click="toggle()">
+	<span class="menu_title" purpose="{{blockitem.purpose}}">{{blockitem.title}}</span>
+	<span class="togglemenu" ng-show="blockitem.fold">&#9660;</span>
+	<span class="togglemenu" ng-show="!blockitem.fold">&#9650;</span>
+</span>
+<span class="menu_block_body">
+	<menuitem ng-repeat="item in blockitem.items" d="item"></menuitem>
+</span>

@@ -1,0 +1,3 @@
+<button ng-class="{ '{{d.id}}' : true }">
+	{{d.id}}
+</button>

@@ -1,0 +1,11 @@
+
+<div class="mb_header">
+	<div>{{menuitem.title}}</div>
+	<div class="togglemenu" ng-show="menuitem.fold" ng-click="menuitem.fold=!menuitem.fold">&#9660;</div>
+	<div class="togglemenu" ng-show="!menuitem.fold" ng-click="menuitem.fold=!menuitem.fold">&#9650;</div>
+</div>
+<div class="mb_body" ng-class="{mb_fold:menuitem.fold, mb_unfold:!menuitem.fold}">
+	<div class="menu_item" anchor="{{item.id}}" ng-repeat="item in menuitem.items track by $index" ng-click="scrollCntBlk(item)">
+		{{item.title}}
+	</div>
+</div>

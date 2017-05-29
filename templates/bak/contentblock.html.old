@@ -1,0 +1,47 @@
+<span ng-if="cntitem.purpose=='sum'">
+	<span id="{{cb.id}}"></span>
+	<span class="cnt_header">
+		<span>{{cb.title}}</span>
+		<span>{{cb.date}}</span>
+	<!-- 	title is like Summary/ Edu/ Exp/ Prj/ etcs -->
+	</span>
+	<span class="cnt_body" ng-repeat="item in cntitem.items">
+		<span>{{cb.title}}</span>
+	</span>
+</span>
+<span ng-if="cntitem.purpose=='edu'">
+	<span id="{{cb.id}}"></span>
+	<span class="cnt_header">
+		<span>{{cb.title}}</span>
+	<!-- 	title is like Summary/ Edu/ Exp/ Prj/ etcs -->
+	</span>
+	<span class="cnt_body" ng-repeat="item in cntitem.items">
+		<span>{{item.title}}</span>
+		<span>{{item.subtitle}}</span>
+		<span>{{item.date}}</span>
+	</span>
+</span>
+<span ng-if="cntitem.purpose=='exp'">
+	<span id="{{cb.id}}"></span>
+	<span class="cnt_header">
+		<span>{{cb.title}}</span>
+		<span>{{cb.date}}</span>
+	<!-- 	title is like Summary/ Edu/ Exp/ Prj/ etcs -->
+	</span>
+	<span class="cnt_body">
+		<span>{{cb.title}}</span>
+		<span ng-if="cb.skillset"></span>
+	</span>
+</span>
+<span ng-if="cntitem.purpose=='prj'">
+	<span id="{{cb.id}}"></span>
+	<span class="cnt_header">
+		<span>{{cb.title}}</span>
+		<span>{{cb.date}}</span>
+	<!-- 	title is like Summary/ Edu/ Exp/ Prj/ etcs -->
+	</span>
+	<span class="cnt_body">
+		<span>{{cb.title}}</span>
+		<span ng-if="cb.skillset"></span>
+	</span>
+</span>

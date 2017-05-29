@@ -1,0 +1,21 @@
+
+
+<div class="listarea" scrollbody>
+	<div class="group_row" ng-repeat="group in groups track by $index" ng-click="selectgroup(group)">
+		<div class="group_name">
+			<input ng-init="edit=false" ng-show="editing" placeholder="group name" ng-model="group">
+			<span class="group_name_lbl" ng-init="editing=false" ng-show="!editing"  ng-class="{'selected':(group==selectedgroup)}">Group Name {{group}}</span>
+		</div>
+		<div class="group_edit">
+			<span ng-show="!editing" class="glyphicon glyphicon-pencil editicon green" ng-click="editing=!editing"></span>
+			<span ng-show="editing" class="glyphicon glyphicon-floppy-save editicon green" ng-click="editing=!editing"></span>
+			<span class="glyphicon glyphicon-trash editicon red"></span>
+		</div>
+	</div>
+</div>
+<div class="newarea">
+	<div class="group_row">
+		<input class="groupname">
+		<div class="addnew">+</div>
+	</div>
+</div>

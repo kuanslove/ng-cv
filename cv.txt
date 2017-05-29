@@ -1,0 +1,59 @@
+Kuan Xing
+
+Seattle, WA
+USA
+
+kuanslove@gmail.com
+1-206-605-7679
+
+
+============================================================ 
+						SUMMARY 
+============================================================ 
+
+Looking for FrontEnd App/UI and web service development.
+
+	Javascript (AngularJS, jQuery, D3.js, Express.js, JS prototype)
+	Design (HTML5, CSS3, SASS, Bootstrap)
+	Java (LibGDX, ApacheSolrJ)
+	OS (Linux, Windows)
+	WebService (Node.js, ApacheSolr, AJAX, REST)
+	DB (PostgreSQL, MongoDB)
+
+
+============================================================ 
+						EXPERIENCE 
+============================================================ 
+
+* BlackRock, Inc 		( 2014-now )
+	Software Developer
+    1. Developed Viewpoint Data Visualization system module dynamically generate user interactive data viz chart and table, system module(data handling and UI widgets) is based on AngularJS, jQuery, CSS3, HTML5, JSON and Linux.
+    2. Developed Viewpoint Full-Text search aplication supporting related document info searching for user interaction of data viz. Application is based on Apache Solr, Java, AngularJS, jQuery, CSS3, HTML5, JSON and Linux.
+
+
+* SRS Pharmacy, Inc 	( 2013-2013 )
+	Software Developer Intern
+	1. Developed PKON medical info management system module converting user signature data into image giles and exporting compress package with summary report, system module is based on C++ PKON platform API, LibGD, Linux and PostgreSQL. 
+	2. Developed PKON system module providing GUI interface to user for editing and sending SMS message, system module is based on C++ PKON platform API, wxWidgets, Linux and PostgreSQL.
+	3. Developed Single-Page Application for instant image uploading and information update with user profile management, application is based on jQuery, CSS3, HTML5, Linux and PostgreSQL.
+
+
+============================================================
+						EDUCATION 
+============================================================
+
+* Michigan Technological University		(2011-2013)
+	Master of Science
+	Computer Engineering
+
+* Civil Aviation University of China	(2011-2013)
+	Bachelor
+	Electronic Information Engineering
+
+
+============================================================
+						PROJECTS 
+============================================================
+
+List of projects is hosted as AngularJS CV on:
+http://kuanslove.github.io

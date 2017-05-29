@@ -1,0 +1,9 @@
+<ul class="sliders">
+	<li style="list-style:none;" ng-repeat="d in data track by $index">
+		<span style="display:inline-block; width:150px;">{{data[$index].month}}[{{data[$index].value}}]: </span>
+		<span>0</span>
+		<input type="range" ng-model="data[$index].value"></input>
+		<span>100</span>
+	</li>
+</ul>
+

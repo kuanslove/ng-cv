@@ -1,0 +1,256 @@
+<html ng-app="unity">
+<head>
+	<title>UnityAPI</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<style type="text/css">
+		group-list-panel {
+			position: absolute;
+			width: 300px;
+			height: 150px;
+			top:20px;
+			left:20px;
+			border:	1px solid black;
+
+			display: flex;
+			flex-flow: column nowrap;
+		}
+		setting-list-panel {
+			position: absolute;
+			width: 300px;
+			height: 150px;
+			top:20px;
+			left:350px;
+			border:	1px solid black;
+
+			display: flex;
+			flex-flow: column nowrap;
+		}
+	</style>
+
+	<style type="text/css">
+		
+		.listarea {
+			width: 100%;
+			flex:1;
+			overflow: hidden;
+		}
+		.newarea {
+			display: block;
+			width: 100%;
+			flex: 0 0 autopx;
+		}
+		.group_row {
+			width: 100%;
+			height: 30px;
+			display: -moz-box; 
+			display: -ms-flexbox; 
+			display: -webkit-flex; 
+			display: flex;
+			flex-flow: row nowrap; 
+			-webkit-flex-flow: row nowrap;
+			justify-content: space-between;
+			-webkit-justify-content: space-between;
+			align-items: center;
+			-webkit-align-items: center;
+		}
+		.group_row:nth-child(even) {
+			background-color: whitesmoke;
+		}
+		.group_row:hover {
+			background-color: lightblue;
+			color: black;
+			cursor: pointer;
+		}
+		.group_name {
+			flex:1;
+			-webkit-flex: 1;
+			display: inherit;
+		}
+
+		.group_name .group_name_lbl {
+			padding-left: 5px;
+			height: 100%;
+			line-height: 30px;
+			flex: 1;
+		}
+		.group_name .group_name_lbl.selected {
+			background-color: lightyellow;
+			color: yellow;
+		}
+		.group_edit {
+			flex: 0 0 60px;
+			-webkit-flex: 0 0 60px;	
+			display: inherit;
+			justify-content: flex-end;
+		}
+		.group_edit span.editicon {
+			margin-right:5px;
+		}
+		.group_edit span.editicon.red:hover {
+			color: red;
+			font-weight: bold;
+		}
+		.group_edit span.editicon.green:hover {
+			color: green;
+			font-weight: bold;
+		}
+		.addnew {
+			width: 30px;
+			height: 30px;
+			text-align: center;
+			font-weight: 20px;
+			line-height: 30px;
+			cursor: pointer;
+			color:yellow;
+			background-color: steelblue;
+		}
+		.addnew:hover {
+			background-color: lightseagreen;
+			color: whitesmoke;
+		}
+		.groupname {
+			height: 30px;
+			flex:1;
+			outline: 0;
+		}
+	</style>	
+</head>
+<body ng-controller="main">
+
+	<setting-list-panel></setting-list-panel>
+	<group-list-panel></group-list-panel>
+
+
+
+
+	<script src="js/jquery.min.js"></script>
+	<script src="js/angular.js"></script>
+	<script src="js/d3.min.js"></script>
+
+	<script>
+
+		(function(){
+
+			var app = angular.module("unity", []);
+			app.controller("main", function($scope){
+			});
+
+			app.service("confmanager", function(){
+
+				function task_desc(){
+					// User Story
+					// Janet is working on a feature to save settings for a game, and would like these settings to be stored in the cloud so they can also be managed via a separate web interface. The game settings data will only consist of key/value pairs (KVPs), where keys can be arbitrary strings (within character set [a¬z0-9.¬]) and values can only be simple primitive types (string, number, boolean, and null). Additionally, she would like the ability to organize settings into logical groups (e.g. “difficulty”) and create variations of each group without having to duplicate data (e.g. “easy”, “hard”). For instance, a key of “maxEnemyCount” in the “difficulty” group would automatically be inherited by sub-groups “easy” and “hard”, and could be optionally overridden in each.
+					// Exercise #1 - API Design
+					// •	¬Design a REST API that meets the design requirements of the user story. Give example request and responses for each route.
+					// •	¬API spec should contain whatever features you feel are most important, but must at least have routes specified for the following functions:
+					// o	Create and list settings groups
+					// o	¬Retrieve all KVPs for a settings group
+					// o	¬Modify and delete individual KVPs
+					// •	
+					// Exercise #2A - Backend Implementation
+					// •	Implement a working RESTful HTTP backend for the API designed in Exercise #1
+					// •	Functionality should at least cover the minimum feature set specified in Exercise #1
+					// •	The API content format should be JSON
+					// •	The backend does not have to be hosted, but must work against calls from localhost.
+					// Exercise #2B - Frontend Implementation
+					// •	Implement a basic management website for your API that meets the design requirements of the user story.
+					// •	Hard¬coded sample data is acceptable to demonstrate the website.
+					// •	Be prepared to discuss how your implementation facilitates iteration with a visual designer.
+				}
+				function databank(){
+					function logicalGroup(gn){
+						if( groupName == undefined ){
+							groupName = "LogicalGroup:"+logicalGroup.prototype.id++;
+						}else {
+							groupName = gn;
+						}
+						var attrTable = {};
+						var settingList = [];
+						this.setGroupName = function(gn){
+							groupName = gn;
+						}
+						this.getGroupName = function(){
+							return groupName;
+						}
+						this.setAttribute = function (k, v){
+							attrTable[k] = v;
+						}
+						this.getAttribute = function (k){
+							return attrTable[k]?attrTable[k]:null;
+						}
+					}
+					logicalGroup.prototype.id = 0;
+				};	
+
+				this.getGroup = function(groupid){
+					// the REST API is: /group/id
+					// /group/0 is all groups
+					
+				}
+			});
+
+
+			app.directive("scrollbody", function(){
+				return {
+					restrict: "A",
+					scope : {
+					},
+					controller: function($scope){
+					},
+					link: function(scope, EL, attrs){
+						var rate = 20;
+						EL.on("mousewheel", function(){
+							var e = window.event || e; // old IE support
+							var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+							EL.scrollTop( EL.scrollTop() - delta*rate );
+						});
+					}
+				};
+			});
+
+			// the menu panel lists all groups
+			app.directive("groupListPanel", function(){
+				return {
+					restrict: "AE",
+					scope : {
+					},
+					templateUrl: "templates/unity/grouplistpanel.html",
+					controller: function($scope){
+						$scope.groups = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+						$scope.selectedgroup = null;
+						$scope.selectgroup = function(group){
+							$scope.selectedgroup = group;
+						}
+					},
+					link: function(scope, EL, attrs){
+
+					}
+				};
+			});
+
+			// the content panel lists all settings in one group
+			app.directive("settingListPanel", function(){
+				return {
+					restrict: "AE",
+					scope : {
+
+					},
+					templateUrl: "templates/unity/settinglistpanel.html",
+					controller: function($scope){
+
+					},
+					link: function(scope, EL, attrs){
+
+					}
+				};
+			});
+
+
+
+
+		})();
+
+	</script>	
+
+</body>
+</html>

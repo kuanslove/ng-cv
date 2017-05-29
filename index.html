@@ -1,0 +1,510 @@
+<html ng-app="vp">
+<head>
+	<title>CV - Kuan Xing</title>
+	<link rel="stylesheet" type="text/css" href="css/test_style.css">
+</head>
+<body ng-controller="main">
+
+	<div class="frame">
+		<div class="selfie" ng-show="true" scrollbody>
+			<span class="logo_frame">
+				<img class="logo" ng-src="{{personInfo.logo}}">
+			</span>
+			<span class="contact">
+				<h1>{{personInfo.name}}</h1>
+				{{personInfo.email}}<br><br>
+				{{personInfo.phone}}<br><br>
+				{{personInfo.portfolio}}<br><br>
+				{{personInfo.addr_ln1}}<br>
+				{{personInfo.addr_ln3}}<br><br>
+			</span>
+			<br>
+			<span class="role">
+				{{blocksinfo[2].items[0].item_cnt_subtitle}}<br>
+				@<br>				
+				{{blocksinfo[2].items[0].item_cnt_title}}
+			</span>
+		</div>
+		<div class="menu" ng-show="true" ng-class="{open:menuopen, close:!menuopen}">
+			<span class="handle_frame">
+
+				<style type="text/css">
+				.ng-cloak { display: none; }
+				</style>
+
+				<span class="menu_arrow ng-cloak" ng-show="!menuopen" ng-click="menuopen=!menuopen">&#9654;</span>
+				<span class="menu_arrow ng-cloak" ng-show="menuopen" ng-click="menuopen=!menuopen">&#9664;</span>
+			</span>
+			<div class="menu_blk_frame" scrollbody>
+				<menublock ng-repeat="d in blocksinfo track by $index" blockitem="d"></menublock>
+				<span class="row">
+					<button id="cvexport" ng-click="exportcv()">EXPORT MY RESUME</button>
+				</span>
+			</div>
+		</div>
+		<div class="cnt" ng-show="true" scrollbody>
+			<cntblock ng-repeat="d in blocksinfo track by $index" blockitem="d"></cntblock>
+		</div>
+	</div>
+
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.5/angular.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.13/angular-ui-router.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+	<script src="js/html2canvas.js"></script>
+	
+	<script>
+
+		(function(){
+			var app = angular.module("vp", []);
+			var color = d3.scale.category20c();
+			app.controller("main", function($scope, exportcv){
+				$scope.menuopen = true;
+				$scope.personInfo = {
+					name: "Kuan Xing",
+					email: "kuanslove@gmail.com",
+					phone:"(206)605-7679",
+					addr_ln1:"4237 11th AVE NE",
+					addr_ln2:"",
+					addr_ln3:"Seattle WA, USA",
+					page:"",
+					portfolio: "www.github.com/kuanslove",
+					// logo: "",
+					logo:"https://avatars.githubusercontent.com/u/3187965?v=3",
+					github:"",
+				}
+				$scope.blocksinfo = [
+					{
+						title:"SUMMARY",
+						purpose:"sum",
+						fold: false,
+						items: [
+							{
+								item_title:"MY SUM",
+								item_id:"sum_1",
+								item_cnt_title:"Actively looking for Web development position. My primary contact: kuanslove@gmail.com/(206)605-7679",
+								item_cnt_sums: [
+									{
+										skill: "JavaScript",
+										desc: "JS Closure and Prototype OOP, DOM, jQuery, AngularJS, D3.js, TypeScript, Squelize, Mongoose, Node.js, React.js, Redux, Jasmine, Unit Testing"
+									},
+									{
+										skill: "Java",
+										desc: "ApacheSolrJ, LiGDX"
+									},
+									{
+										skill: "Design",
+										desc: "HTML5, CSS3, Sass"
+									},
+									{
+										skill: "DB",
+										desc: "MySQL, PostgreSQL, MongoDB"
+									},
+									{
+										skill: "DevTool",
+										desc: "Eclipse, Git, SVN, Chrome Debug Tool, webpack, Gulp, Babel, Browserify"
+									},
+									{
+										skill: "OS",
+										desc: "Prefer full Linux environment, familiar with Amazon AWS" 
+									},
+									{
+										skill: "Server",
+										desc: "Apache, ExpressJS and Apache Solr. Hands-on experience RESTful API design and CORS data service"
+									}
+								]
+
+							}
+						]
+					},
+					{
+						title:"EDUCATION",
+						purpose:"edu",
+						fold: false,
+						items: [
+							{
+								item_title:"MTU",
+								item_id:"edu_2",
+								item_cnt_title:"Michigan Technological University",
+								item_cnt_subtitle: "Computer Engineering",
+								item_cnt_date: "2011-2014",
+								item_cnt_desc: "Master of Science, GPA: 3.55",
+								item_cnt_uni_logo:"img/mtu.jpg"
+							},
+							{
+								item_title:"CAUC",
+								item_id:"edu_1",
+								item_cnt_title:"Civil Aviation University of China",
+								item_cnt_subtitle: "Electronic Information Engineering",
+								item_cnt_date: "2003-2007",
+								item_cnt_desc: "Bachelor of Science, GPA: 3.58",
+								item_cnt_uni_logo:"img/cauc.jpg"
+							}
+
+						]
+					},
+					{
+						title:"EXPERIENCE",
+						purpose:"exp",
+						fold: false,
+						items: [
+							{
+								item_title:"BLK",
+								item_id:"exp_3",
+								item_cnt_title:"BlackRock, Inc",
+								item_cnt_subtitle: "Software Developer",
+								item_cnt_date: "2014-Now",
+								item_cnt_desc: [
+									"Developed Viewpoint visualization system UI/data modules. For UI module, it includes interactive chart like Linechart/BarChart/BubbleChart/TableChart, filtering slider, tooltips, progress indicator, builtin search bar. For data module, it includes async data file loader, sidemenu builder, chart snapshot exporter. Wrote function module testing case based on Jasmine framework. UI/Data modules based on AngularJS and jQuery.",
+									"Developed Viewpoint document search website based on Apache Solr. The site includes Java powered backend service to read in CSV file, download documents fron remote server, parse document into structured Solr record, submit and index. And the AngularJS powered frontend search page implements features like pagination, filtering."
+								],
+								item_cnt_com_logo:"img/blkrck.jpg",
+								item_cnt_com_skillset:["Javascript", "AngularJS", "jQuery", "CSS", "HTML5", "Java", "Node.js", "Apache Solr", "Apache HTTPClient", "AJAX", "JSON", "Jasmine", "Gulp", "Karma"]
+							},
+							{
+								item_title:"SRS",
+								item_id:"exp_2",
+								item_cnt_title:"SRS Pharmacy, Inc",
+								item_cnt_subtitle: "Software Developer Intern",
+								item_cnt_date: "2013-2013",
+								item_cnt_desc: ["Developed Pkon Pharmacy System module which include patient signature exportation tool and SMS sending GUI. The signature exportation tool allow users to select time range to filter user digital signature data, automatically converted into image files and package them with generated report. The SMS sending GUI enhances current commandline system with Windows user operation based on Wxwidgets","Developed Online Sale Single page App to allow instant production info release. It includes image clientside processing/uploading, realtime page info refreshing and administration control panel to manage user info and product info."],
+								item_cnt_com_logo:"img/srs.jpg",
+								item_cnt_com_skillset:["CSS", "HTML5", "Linux", "Node.js", "jQuery", "AJAX", "PostgreSQL"]
+							},
+							{
+								item_title:"ACC",
+								item_id:"exp_1",
+								item_cnt_title:"AirChina Cargo Co., Ltd",
+								item_cnt_subtitle: "System Engineer",
+								item_cnt_date: "2007-2011",
+								item_cnt_desc: ["Developed A/G Data link converting app. It is a CGI app ran by Apache python module. It reads in data report fron Air/Ground data link gateway, parses it into readable formated report.","Develop A/C training Server, setup a Windows media server to stream training material across LAN."],
+								item_cnt_com_logo:"img/airchina.jpg",
+								item_cnt_com_skillset:["Javascript", "CSS", "HTML", "Apache", "Python"]
+							},
+						]
+					},
+					{
+						title:"PROJECTS",
+						purpose:"prj",
+						fold: false,
+						items: [
+							{
+								item_title:"VUT",
+								item_id:"prj_6",
+								item_cnt_title:"Viewpoint User Tracking",
+								item_cnt_link: "",
+								item_cnt_date: "2016-2016",
+								item_cnt_desc: "A Full-stack user activity tracking system. It provides Viewpoint Manager/Admin a Interface/DataServer to import user activity data and visualize Statistic Info, helps new feature and improvment added to Viewpoint System.",
+								item_cnt_prj_logo:["vut1.png", "vut2.png", "vut3.png", "vut4.png"],
+								item_cnt_prj_skillset:["Javascript", "AngularJS", "Sequelize", "sqlite3", "Express.js", "Node.js", "JsonWebToken", "HighChart", "Auth", "SQL", "CSS", "HTML5"]
+							},
+							{
+								item_title:"VSL",
+								item_id:"prj_5",
+								item_cnt_title:"Viewpoint Slider",
+								item_cnt_link: "https://github.com/kuanslove/viewpointslider",
+								item_cnt_date: "2016-2016",
+								item_cnt_desc: "This is a slider directive which I used in my daily job project, it may have a general purpose for simple prime type value array So I just put it here see if anyone want to use it.",
+								item_cnt_prj_logo:["vsl1.png"],
+								item_cnt_prj_skillset:["Javascript", "AngularJS", "CSS", "HTML5"]
+							},
+							{
+								item_title:"RDT",
+								item_id:"prj_4",
+								item_cnt_title:"MyReddit",
+								item_cnt_link: "https://github.com/kuanslove/myreddit",
+								item_cnt_date: "2015-2015",
+								item_cnt_desc: "My Reddit is simple news feeder android app to fetch Reddit news from Reddit API, it parses JSON feedback data and render it real time supporting pulldown to fetch new feeds and liftup to infinite loading old feeds.",
+								item_cnt_prj_logo:["rdt1.jpg"],
+								item_cnt_prj_skillset:["Javascript", "AngularJS", "Ionic", "CSS", "HTML5"]
+							},
+							{
+								item_title:"VPT",
+								item_id:"prj_3",
+								item_cnt_title:"Viewpoint",
+								item_cnt_link: "",
+								item_cnt_date: "2003-2007",
+								item_cnt_desc: "Viewpoint is online data visualization tool to generate data chart/table and collect info from multiple sources to facilitate financial analysts to make investment decision.",
+								item_cnt_prj_logo:["vp.jpg", "vp2.jpg", "vp3.jpg"],
+								item_cnt_prj_skillset:["Javascript", "jQuery", "AngularJS", "D3.js", "Node.js", "JSON", "CSS", "HTML5", "Apache Solr", "Java"]
+							},
+							{
+								item_title:"OGS",
+								item_id:"prj_2",
+								item_cnt_title:"Online Grocery Store",
+								item_cnt_link: "https://github.com/kuanslove/OGS",
+								item_cnt_desc: "[O]nline [G]rocery [S]tore is my personal single page app project during internship. It allows user to upload products's images which to sell and post info iimmediately. Features include supporting client image processing and user management panel.",
+								item_cnt_prj_logo:["ogs1.png", "ogs2.png", "ogs3.png", "ogs4.png"],
+								item_cnt_prj_skillset:["Javascript", "jQuery", "Node.js", "PostgreSQL", "CSS", "HTML5", "Linux"]
+							},
+							{
+								item_title:"RAM",
+								item_id:"prj_1",
+								item_cnt_title:"Team Chrysler MindTrekker Game",
+								item_cnt_link: "https://github.com/kuanslove/LibGdxProject_RamTrailor",
+								item_cnt_desc: "Team Chrysler is a Android driving game for Chrysler RAM brand in MindTrekker program. It uses LibGDX and BOX2D game engine to build the world scene and control UI.",
+								item_cnt_prj_logo:["ram1.png", "ram2.png"],
+								item_cnt_prj_skillset:["Java", "Linux", "Android", "LiGDX", "BOX2D"]
+							},
+							{
+								item_title:"CGS",
+								item_id:"prj_0",
+								item_cnt_title:"Computer Grapic Project",
+								item_cnt_link: "https://github.com/kuanslove/CGprj",
+								item_cnt_date: "2012-2012",
+								item_cnt_desc: "Computer Graphic ab project. Using OPENGL build a internal scene with use interaction such as key and mousegesture.",
+								item_cnt_prj_logo:["cg1.jpg"],
+								item_cnt_prj_skillset:["C", "OpenGL", "Linux Compiling"]
+							}
+						]
+					}
+				];
+				$scope.exportcv = function(){
+					exportcv.export( d3.select(".cnt").node() );
+				};
+			});
+
+			app.service("exportcv", function(){
+				this.export = function(root){
+					d3.select(root).style("height", "auto");
+					html2canvas(root, {
+						onrendered: function(canvas) {
+							var a = d3.select("body").select("a.exp");
+							if( a.empty() ){
+								a = d3.select("body")
+										.append("a")
+										.classed("exp", true)
+										.attr("target", "_blank");
+							}
+							var canvasdata = canvas.toDataURL("image/png");
+							a.node().href = canvasdata;
+							a.node().click();
+							d3.select(root).style("height", "100%");
+						}
+					});
+				};
+			});
+
+			app.directive("scrollbody", function(){
+				return {
+					restrict: "AE",
+					controller: function($scope){
+
+					},
+					link: function(scope, EL, attrs){
+
+
+						EL.on("DOMMouseScroll", function(e){
+							var evt  = window.event || e.originalEvent; // old IE support
+							var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -evt.detail*6)));
+							$(this).scrollTop(  $(this).scrollTop()-delta*20 );
+						});
+
+
+
+						EL.on("mousewheel", function(){
+							var e = window.event || e; // old IE support
+							var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+							$(this).scrollTop(  $(this).scrollTop()-delta*20 );
+						});
+					}
+				};
+			});
+
+			app.directive('menublock', function(){
+				return {
+					restrict: "AE",
+					scope: {
+						blockitem: "="
+					},
+					// blockitem is like : 
+					// {
+					// 	title:"",
+					// 	purpose:"",
+					// 	items:[
+					// 		{
+					// 			item_title:"",
+					// 			item_id:""
+					// 		}
+					// 	]
+					// }
+					templateUrl: "templates/menublock.html",
+					controller: function($scope){
+
+					},
+					link: function(scope, EL, attrs){
+						scope.toggle = function(){
+							if(scope.blockitem.fold){
+								scope.blockitem.fold = false;
+								EL.find(".menu_block_body")
+									.slideDown();
+							} else {
+								scope.blockitem.fold = true;
+								EL.find(".menu_block_body")
+									.slideUp();
+							}
+						}
+					}// end of link
+				};
+			});
+
+			app.directive("cntblock", function(){
+				return {
+					restrict: 'AE',
+					scope: {
+						blockitem: "="
+					},
+					templateUrl: "templates/contentblock.html",
+					controller: function($scope){
+
+					},
+					link: function(scope, EL, attrs){
+					}
+				}
+			});
+
+			app.directive("cntitem", function($compile){
+				return  {
+					restrict: "AE",
+					scope: {
+						d: "=",
+						purpose: "="
+					},
+					templateUrl: "templates/contentitem.html",
+					controller: function($scope){
+						$scope.hlt = false;
+					},
+					link: function(scope, EL, attrs){
+
+						scope.d.scrollTop = function(){
+							var top = EL.find("div."+scope.d.item_id)
+								.offset().top;
+							var containerscroll = $(".cnt").scrollTop();
+							$(".cnt").animate({ scrollTop: (-10 + top+containerscroll)+"px" });
+						}// end of scrollTop
+
+						var itemscope = scope;
+
+						scope.d.hltItem = function(){
+							itemscope.hlt = true;
+							itemscope.$digest();
+						}
+						scope.d.de_hltItem = function(){
+
+							itemscope.hlt = false;
+							itemscope.$digest();
+
+						}
+					}
+				};
+			});
+
+			app.directive("menuitem", function(){
+				return  {
+					restrict: "AE",
+					scope: {
+						d: "="
+					},
+					templateUrl: "templates/menuitem.html",
+					controller: function($scope){
+					},
+					link: function(scope, EL, attrs){
+						EL.on("click", "span", function(){
+							scope.d.scrollTop();
+						});
+						EL.on("mouseenter", "span", function(){
+							scope.d.hltItem();
+						});
+						EL.on("mouseleave", "span", function(){
+							scope.d.de_hltItem();
+						});
+					}// end of link
+				};
+			});
+
+			app.directive("pic", function(){
+				return {
+					restrict: "AE",
+					scope: {
+						src: "=",
+					},
+					controller: function($scope){
+						$scope.size = {w:0, h:0};
+					},
+					link: function(scope, EL, attrs){
+						var d3el = d3.select(EL[0]);
+						var img = d3el.append("img")
+									  .classed("imgcnt", true)
+									  .attr("src", scope.src);
+						EL.css("overflow", "hidden");
+						function buildScaler(EL, rate){
+							var EW = EL.width();
+							var EH = EL.height();
+							scope.w = EW;
+							scope.h = EH;
+							var scale;
+							if(rate>=1){
+								var scale_w = EH * rate;
+								scale = d3.scale.linear()
+											.domain([0.1*EW, 0.9*EW])
+											.range([0, (scale_w-EW)>0?(scale_w-EW):0])
+											.clamp(true);
+							}else {
+								var scale_h = EW / rate;
+								scale = d3.scale.linear()
+											.domain([0.1*EH, 0.9*EH])
+											.range([0, (scale_h-EH)>0?(scale_h-EH):0])
+											.clamp(true);
+							}
+							return scale;
+						}
+						var imgDOM = img.node();
+						var scale, rate, counter; 
+						imgDOM.onload = function(){
+							var w = this.naturalWidth;
+							var h = this.naturalHeight;
+							rate = w/h;
+							scale = buildScaler(EL, rate);
+							if(w>h){
+								img.classed({
+									"landscape": true,
+									"potrait": false
+								});
+								d3el.on("mousemove", function(){
+									var offset = d3.mouse(this);
+									if(EL.width()!=scope.w || EL.height()!=scope.h){
+										scale = buildScaler(EL, rate);
+									}
+									EL.scrollLeft( scale(offset[0]) );
+								});
+							}else {
+								img.classed({
+									"landscape": false,
+									"potrait": true
+								});
+								d3el.on("mousemove", function(){
+									var offset = d3.mouse(this);
+									if(EL.width()!=scope.w || EL.height()!=scope.h){
+										scale = buildScaler(EL, rate);
+									}
+									EL.scrollTop( scale(offset[1]) );
+								});
+							}
+						}
+
+
+
+
+					}
+				}
+			});
+
+		})();
+
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+<div class="cntitem_frame" ng-if="purpose=='sum'" ng-class="{'{{d.item_id}}':true, 'hlt': hlt}">
+	<div class="singlecol">
+		<span class="sum_obj">{{d.item_cnt_title}}</span>
+		<div class="sum_row" ng-repeat="s in d.item_cnt_sums track by $index">
+			<span class="row_left" style="display:inline-block; width:80px;">{{s.skill}}</span>:
+			<span class="row_right" style="float:right; display:inline-block; white-space:wrap">{{s.desc}}</span>
+		</div>
+	</div>
+</div>
+<div class="cntitem_frame" ng-if="purpose=='edu'" ng-class="{'{{d.item_id}}':true, 'hlt': hlt}">
+	<div class="leftcol">
+		<div><strong>{{d.item_cnt_title}}</strong></div>
+		<div><i>{{d.item_cnt_subtitle}}</i></div>
+		<div>{{d.item_cnt_desc}}</div>
+	</div>
+	<div class="rightcol">
+		{{d.item_cnt_date}}
+		<img class="itemlogo" ng-src="{{d.item_cnt_uni_logo}}">
+	</div>
+</div>
+<div class="cntitem_frame" ng-if="purpose=='exp'" ng-class="{'{{d.item_id}}':true, 'hlt': hlt}">
+	<div class="leftcol">
+		<div><strong>{{d.item_cnt_title}}</strong></div>
+		<div><i>{{d.item_cnt_subtitle}}</i></div>
+
+		<ul>
+			<li ng-repeat="desc in d.item_cnt_desc track by $index">
+				{{desc}}
+			</li>
+		</ul>
+		<span>Skillset</span>: 
+		<span ng-repeat="skill in d.item_cnt_com_skillset track by $index">{{skill}} <span ng-show="$index<(d.item_cnt_com_skillset.length-1)">,</span>
+	</div>
+	<div class="rightcol">
+		<span ng-repeat="skill in d.item_cnt_com_skillset"></span>
+		{{d.item_cnt_date}}
+		<img class="itemlogo" ng-src="{{d.item_cnt_com_logo}}">
+	</div>
+</div>
+<div class="cntitem_frame" ng-if="purpose=='prj'" ng-class="{'{{d.item_id}}':true, 'hlt': hlt}">
+	<div class="leftcol">
+		<div><strong>{{d.item_cnt_title}}</strong></div>
+		<div ng-if="d.item_cnt_link!=''"><a target="blank" href="{{d.item_cnt_link}}">{{d.item_cnt_link}}</a></div>
+		<br>
+		<div>{{d.item_cnt_desc}}</div>
+		<br>
+		<div>
+			<span>Skillset</span>: 
+			<span ng-repeat="skill in d.item_cnt_prj_skillset">
+				{{skill}}<span ng-show="$index<(d.item_cnt_prj_skillset.length-1)">,</span>
+			</span>
+		</div>
+		<div style="width:100%; display:flex; flex-flow:row wrap; justify-content: center;">
+			<pic class="prj_snapshot" ng-repeat="snap in d.item_cnt_prj_logo track by $index" src="'img/'+snap" />
+		</div>
+	</div>
+</div>

@@ -1,0 +1,171 @@
+<html ng-app="globys">
+<head>
+	<title>APPLICATION DEMO for GLOBYS</title>
+	<style type="text/css">
+		ul span {
+			font-size:14px;
+		}
+	</style>
+	<style type="text/css">
+		.monthly_chart svg {
+			float:left;
+			margin-top: 30px;
+			margin-left: 30px;
+		}
+		.monthly_chart .sliders {
+			float:left;
+		}
+	</style>
+</head>
+<body ng-controller="main as m">
+	<monthly-chart data="m.monthly_data"></monthly-chart>
+
+	<script src="bower_components/angular/angular.min.js"></script>
+	<script src="bower_components/d3/d3.min.js"></script>
+
+	<script type="text/javascript">
+		(function(){
+			
+			var app = angular.module("globys", []);
+
+			app
+			.factory("d3", function(){
+				return d3;
+			})
+			.constant("months", ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"])
+			.controller("main", function($scope, d3, months){
+				function initMonthlyData(num){
+					var data = [];
+					for(var i=0; i<num; i++){
+						data[i] = {
+							month: months[i],
+							value: 50
+						}
+					}
+					return data;
+				}
+				this.monthly_data = initMonthlyData(12);
+			})
+			.directive("monthlyChart", function(){
+				return {
+					restrict:"AE",
+					replace: true,
+					scope: {
+						data: "="
+					},
+					templateUrl: "templates/monthly_chart.html",
+					link: function(scope, EL, attrs){
+
+					}
+				}
+			})
+			.directive("chart", function(d3, months){
+
+				function draw(svg, monthly_data){
+					var W = 500;
+					var H = 300;
+					var R = 40;
+					var B = 20;
+					var yscale = d3.scale.linear()
+									.domain([0, 100])
+									.range([H-B-20, 20]);
+					var xscale = d3.scale.ordinal()
+									.domain(months)
+    								.rangePoints([20, W-R-20]);
+    				var yaxis = d3.svg.axis()
+    								.orient("right")
+    								.scale(yscale);
+    				var xaxis = d3.svg.axis()
+    								.scale(xscale);
+					var cont = d3.select(svg)
+									.attr("width", W)
+									.attr("height", H);
+					var xg = cont.select("g.x-axis")
+								.attr("transform", function(){
+									return "translate("+[0, (H-B)]+")";
+								})
+					var yg = cont.select("g.y-axis")
+								.attr("transform", function(){
+									return "translate("+[(W-R), 0]+")";
+								})
+					xg.call(xaxis);
+					yg.call(yaxis);
+					cont.select("rect.bg")
+						.attr("width", function(){
+							return (W-R);
+						})
+						.attr("height", function(){
+							return (H-B);
+						})
+					var lg = cont.select("g.lg");
+					var ln = d3.svg.line()
+								.interpolate("monotone")
+								.x(function(d, i){
+									return xscale(d.month);
+								})
+								.y(function(d, i){
+									return yscale(d.value);
+								});
+					var line = lg.select("path.line");
+					var pts = lg.selectAll("circle.pt");
+					if(line.empty()){
+						line = lg.append("path")
+							.classed("line", true);
+						pts = lg.selectAll("circle")
+							.data(monthly_data)
+							.enter()
+							.append("circle")
+							.classed("pt", true);
+					}
+					line.attr("d", function(){
+							return ln(monthly_data);
+						})
+					pts.attr("cx", function(d, i){
+						return xscale(d.month);
+					})
+					.attr("cy", function(d, i){
+						return yscale(d.value);
+					})
+					.attr("r", 5);
+
+				}
+
+				return  {
+					restrict: "AE",
+					scope: {
+						data: "="
+					},
+					replace:true,
+					templateUrl:"templates/chart.html",
+					link: function(scope, EL, attrs){
+						var svg  = EL[0];
+						draw(svg, scope.data);
+
+						scope.$watch("data", function(monthly_d){
+							draw(svg, monthly_d);
+						}, true)
+					}
+				}// end of return
+			})// end of directive
+			.directive("sliders", function(months){
+				return {
+					restrict: "AE",
+					scope: {
+						data: "="
+					},
+					replace:true,
+					templateUrl:"templates/sliders.html",
+					controller: function($scope){
+					},
+					link: function(){
+					}
+				}
+			})
+
+
+		})()
+
+
+	</script>
+</body>
+</html>

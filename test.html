@@ -1,0 +1,218 @@
+<html ng-app="vp">
+<head>
+	<title>TEST INTERDIR-COM</title>
+	<link rel="stylesheet" type="text/css" href="css/test_style.css">
+	<style type="text/css">
+		body
+		{
+		   font-family: 'Open Sans', sans-serif;
+		   background-color: #e4e4e4;
+		}
+		 
+		h1
+		{
+		   width: 780px;
+		   margin-left: 20px;
+		   float: left;
+		}
+		 
+		.m-content
+		{
+		   width: 800px;
+		   height: 310px;
+		   margin: auto;
+		}
+		 
+		.photo-booth
+		{
+		   width: 800px;
+		   height: 310px;
+		   float: left;
+		}
+		video
+		{
+		   width: 360px;
+		   height: 270px;
+		   float: left;
+		   margin: 20px;
+		   background-color: #333;
+		}
+		 
+		canvas
+		{
+		   width: 360px;
+		   height: 270px;
+		   float: left;
+		   margin: 20px;
+		   background-color: #777;
+		}
+		.buttons
+		{
+		   margin-left: 20px;
+		   float: left;
+		}
+		 
+		button
+		{
+		   background-color: #d84a38;
+		   border: none;
+		   border-radius: 2px;
+		   color: white;
+		   font-family: 'Open Sans', sans-serif;
+		   font-size: 0.8em;
+		   margin: 0 0 1em 0;
+		   padding: 0.5em 0.7em 0.6em 0.7em;
+		}
+		 
+		button:active
+		{
+		   background-color: #cf402f;
+		}
+		 
+		button:hover
+		{
+		   background-color: #cf402f;
+		   cursor: pointer;
+		}
+		 
+		#filter, #snapshot
+		{
+		   display: none;
+		   margin-right: 20px;
+		   float: left;
+		}
+.blur
+{
+   filter: blur(2px);
+   -webkit-filter: blur(2px);
+}
+ 
+.grayscale
+{
+   filter: grayscale(1);
+   -webkit-filter: grayscale(1);
+}
+ 
+.sepia
+{
+   filter: sepia(1);
+   -webkit-filter: sepia(1);
+}
+ 
+.brightness
+{
+   filter: brightness(2.2);
+   -webkit-filter: brightness(2.2);
+}
+ 
+.contrast
+{
+   filter: contrast(3);
+   -webkit-filter: contrast(3);
+}
+ 
+.hue
+{
+   filter: hue-rotate(120deg);
+   -webkit-filter: hue-rotate(120deg);
+}
+ 
+.invert
+{
+   filter: invert(1);
+   -webkit-filter: invert(1);
+}
+ 
+.saturate
+{
+   filter: staurate(5);
+   -webkit-filter: staurate(5);
+}
+	</style>
+</head>
+<body ng-controller="main">
+
+
+	<div class="m-content">
+	   <h1>getUserMedia + CSS filters demo</h1>
+	 
+	   <div class="photo-booth">
+	      <!-- local video stream will be rendered to the video tag -->
+	      <video autoplay></video>
+	      <!-- a copy of the stream will be made and css filters applied  -->
+	      <canvas></canvas>
+	   </div>
+	   <div class="buttons">
+	      <!-- call getUserMedia() to access webcam and give permission -->
+	      <button id="start">Access Webcam</button>
+	      <!-- take a snapshot from your webcam and render it to the canvas tag -->
+	      <button id="snapshot">Take a Snapshot</button>
+	      <!-- sort through the available css filters -->
+	      <button id="filter">Change Filter</button>
+	   </div>
+	</div>
+
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.5/angular.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.13/angular-ui-router.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+	<script src="js/html2canvas.js"></script>
+	
+	<script>
+
+		navigator.getUserMedia = navigator.getUserMedia ||
+								navigator.webkitGetUserMedia ||
+								navigator.mozGetUserMedia;
+		var constraints = { audio: false, video: true };
+		
+		var start   = document.querySelector('#start');
+		var snapshot = document.querySelector('#snapshot');
+		var filter  = document.querySelector('#filter');
+		var video   = document.querySelector('video');
+		var canvas  = document.querySelector('canvas');
+
+		var filters = ['blur', 'brightness', 'contrast', 'grayscale',
+               'hue', 'invert', 'saturate', 'sepia'];
+		start.addEventListener('click', function() {
+		    navigator.getUserMedia(constraints, success, error);
+		});
+
+		function success(stream) {
+		   /* hide the start button*/
+		   start.style.display = 'none';
+		    
+		   /* show the snapshot button*/
+		   snapshot.style.display = 'block';
+		    
+		   /* show the filter button*/
+		   filter.style.display = 'block';
+		   if(window.URL) {
+		      video.src = window.URL.createObjectURL(stream);
+		   } else {
+		      video.src = stream;
+		   }
+		}
+
+		function error(e) {
+		   console.log('navigator.getUserMedia error: ', e);
+		}
+
+		filter.addEventListener('click', function() {   
+		   var index = (filters.indexOf(canvas.className) + 1) % filters.length;
+		   video.className = filters[index];
+		   canvas.className = filters[index];       
+		});
+
+		snapshot.addEventListener('click', function() {
+		   canvas.width = 360;
+		   canvas.height = 270;
+		   canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+		});
+
+	</script>
+
+</body>
+</html>
